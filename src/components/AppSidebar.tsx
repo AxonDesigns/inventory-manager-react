@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import {
   Sidebar,
@@ -12,7 +13,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { Building2, ChevronsUpDown, LogOut, Package, ReceiptText, User, Users } from "lucide-react"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { Building2, ChevronsUpDown, EllipsisVertical, LogOut, Package, ReceiptText, User, Users } from "lucide-react"
 import { Link } from "react-router-dom"
 
 // Menu items.
@@ -46,31 +48,27 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem>
+          <SidebarMenuItem className="flex items-center justify-start gap-2 p-2">
+            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+              <Building2 className="size-4" />
+            </div>
+            <div className="flex flex-col gap-0.5 leading-none">
+              <span className="font-semibold text-sm">Inventory Manager</span>
+              <span className="text-xs">Enterprise</span>
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                >
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                    <Building2 className="size-4" />
-                  </div>
-                  <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-semibold">Inventory Manager</span>
-                    <span className="">Enterprise</span>
-                  </div>
-                  <ChevronsUpDown className="ml-auto" />
-                </SidebarMenuButton>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="ghost" size="icon" className="ml-auto">
+                      <EllipsisVertical className="size-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    More Options
+                  </TooltipContent>
+                </Tooltip>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-[--radix-dropdown-menu-trigger-width]"
-                align="start"
-              >
-                <DropdownMenuItem onSelect={() => { }}>
-                  All Versions
-                </DropdownMenuItem>
-              </DropdownMenuContent>
             </DropdownMenu>
           </SidebarMenuItem>
         </SidebarMenu>
