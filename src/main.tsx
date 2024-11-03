@@ -1,6 +1,7 @@
+import './global.css'
+import '@fontsource-variable/jetbrains-mono';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './global.css'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import HomePage from '@/pages/home-page';
 import { ThemeProvider } from '@/components/theme-provider';

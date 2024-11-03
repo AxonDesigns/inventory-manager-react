@@ -1,20 +1,17 @@
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import AppSidebarFooter from "@/components/AppSidebarFooter"
+import AppSidebarHeader from "@/components/AppSideBarHeader"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { Building2, ChevronsUpDown, EllipsisVertical, LogOut, Package, ReceiptText, User, Users } from "lucide-react"
+import { Package, ReceiptText, Users } from "lucide-react"
 import { Link } from "react-router-dom"
 
 // Menu items.
@@ -46,33 +43,7 @@ export function AppSidebar() {
   const { setOpenMobile } = useSidebar()
   return (
     <Sidebar>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem className="flex items-center justify-start gap-2 p-2">
-            <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Building2 className="size-4" />
-            </div>
-            <div className="flex flex-col gap-0.5 leading-none">
-              <span className="font-semibold text-sm">Inventory Manager</span>
-              <span className="text-xs">Enterprise</span>
-            </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" className="ml-auto">
-                      <EllipsisVertical className="size-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    More Options
-                  </TooltipContent>
-                </Tooltip>
-              </DropdownMenuTrigger>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
+      <AppSidebarHeader />
       <SidebarContent >
         <SidebarGroup>
           <SidebarGroupLabel>Administration</SidebarGroupLabel>
@@ -92,37 +63,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton
-                  size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                >
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                    <User className="size-4" />
-                  </div>
-                  <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-semibold">Username</span>
-                    <span className="">email@example.com</span>
-                  </div>
-                  <ChevronsUpDown className="ml-auto" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-[--radix-dropdown-menu-trigger-width]"
-                align="start"
-              >
-                <DropdownMenuItem>
-                  <LogOut /> Log Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
+      <AppSidebarFooter />
     </Sidebar>
   )
 }
