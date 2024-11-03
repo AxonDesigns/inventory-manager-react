@@ -9,8 +9,8 @@ type Post = {
 }
 
 function ProductsPage() {
-  const { data: posts } = useSWR("https://jsonplaceholder.typicode.com/posts", async (url: string) => {
-    const response = await axios.get(url, {});
+  const { data: posts } = useSWR("/posts", async (url: string) => {
+    const response = await axios.get(url, { baseURL: "https://jsonplaceholder.typicode.com" });
     return await response.data as Post[];
   }, { suspense: true });
 

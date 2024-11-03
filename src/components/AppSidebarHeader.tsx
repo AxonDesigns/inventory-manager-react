@@ -31,20 +31,17 @@ function AppSidebarHeader() {
               className="w-[--radix-dropdown-menu-trigger-width]"
               align="start"
             >
-              <DropdownMenuLabel>Organization Settings</DropdownMenuLabel>
+              <DropdownMenuLabel>Switch organization</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem>
-                  Profile
+                  Organization 1
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  Billing
+                  Organization 2
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  Settings
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Keyboard shortcuts
+                  Organization 3
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>

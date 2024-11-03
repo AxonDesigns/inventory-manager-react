@@ -14,3 +14,20 @@
 </body>
 
 </html>
+<script>
+  // Avoids white flash when loading the page
+  const darkColor = '#09090b';
+  const theme = localStorage.getItem("vite-ui-theme");
+  if (theme === "system") {
+    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+    if (systemTheme === "dark") {
+      document.getElementsByTagName('html')[0].style.backgroundColor = darkColor;
+    }
+  }
+
+  if (theme === "dark") {
+    document.getElementsByTagName('html')[0].style.backgroundColor = darkColor;
+  }
+</script>
