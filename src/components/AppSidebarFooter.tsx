@@ -1,9 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
+import { useSession } from '@/hooks/useSession';
 import { ChevronsUpDown, LogOut, User } from 'lucide-react'
+import { useNavigate } from 'react-router-dom';
 
 function AppSidebarFooter() {
+  const { user, logout } = useSession();
+  const navigate = useNavigate();
+
   return (
     <SidebarFooter>
       <SidebarMenu>
@@ -21,8 +26,8 @@ function AppSidebarFooter() {
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Username</span>
-                  <span className="">email@example.com</span>
+                  {user && <span className="font-semibold line-clamp-1">{user.name}</span>}
+                  {user && <span className="">{user.email}</span>}
                 </div>
                 <ChevronsUpDown className="ml-auto" />
               </SidebarMenuButton>
@@ -31,7 +36,10 @@ function AppSidebarFooter() {
               className="w-[--radix-dropdown-menu-trigger-width]"
               align="start"
             >
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => {
+                logout();
+                navigate("/login");
+              }}>
                 <LogOut /> Log Out
               </DropdownMenuItem>
             </DropdownMenuContent>
