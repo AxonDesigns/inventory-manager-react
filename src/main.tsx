@@ -3,7 +3,6 @@ import '@fontsource-variable/jetbrains-mono/index.css';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
-import HomePage from '@/pages/home-page';
 import { ThemeProvider } from '@/components/theme-provider';
 import NotFoundPage from '@/pages/not-found-page';
 import TablesLayout from '@/layouts/TablesLayout';
@@ -11,7 +10,7 @@ import RootLayout from '@/layouts/RootLayout';
 import ProductsPage from '@/pages/tables/ProductsPage';
 import LoginPage from '@/pages/LoginPage';
 import { Toaster } from '@/components/ui/sonner';
-import { SessionProvider } from '@/hooks/useSession';
+import { AuthProvider } from '@/components/AuthProvider';
 
 // paths with no trailing slash are considered as relative to the current path
 // in the other hand, paths with trailing slash are considered as absolute
@@ -24,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <Navigate to="/login" replace />,
       },
       {
         path: "login",
@@ -63,11 +62,11 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <SessionProvider>
+    <AuthProvider>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
         <Toaster />
       </ThemeProvider>
-    </SessionProvider>
+    </AuthProvider>
   </StrictMode>,
 )

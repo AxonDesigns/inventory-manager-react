@@ -1,6 +1,5 @@
 import useSWR from 'swr';
 import axios from 'axios';
-import { useSession } from '@/hooks/useSession';
 
 type Post = {
   userId: number;

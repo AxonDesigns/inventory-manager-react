@@ -1,12 +1,12 @@
+import { useAuth } from '@/components/AuthProvider';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
-import { useSession } from '@/hooks/useSession';
 import { ChevronsUpDown, LogOut, User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom';
 
 function AppSidebarFooter() {
-  const { user, logout } = useSession();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -27,7 +27,7 @@ function AppSidebarFooter() {
                 </Avatar>
                 <div className="flex flex-col gap-0.5 leading-none">
                   {user && <span className="font-semibold line-clamp-1">{user.name}</span>}
-                  {user && <span className="">{user.email}</span>}
+                  {user && <span>{user.email}</span>}
                 </div>
                 <ChevronsUpDown className="ml-auto" />
               </SidebarMenuButton>

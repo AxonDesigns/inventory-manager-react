@@ -1,4 +1,5 @@
 "use client"
+import { useAuth } from "@/components/AuthProvider"
 import {
   Button
 } from "@/components/ui/button"
@@ -17,7 +18,6 @@ import {
   PasswordInput
 } from "@/components/ui/password-input"
 import { Separator } from "@/components/ui/separator"
-import { useSession } from "@/hooks/useSession"
 import {
   zodResolver
 } from "@hookform/resolvers/zod"
@@ -36,7 +36,7 @@ export default function LoginForm() {
     resolver: zodResolver(formSchema),
   })
 
-  const { user, login } = useSession();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
