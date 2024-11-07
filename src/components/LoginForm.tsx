@@ -40,8 +40,11 @@ export default function LoginForm() {
   const navigate = useNavigate();
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
-    await login(values.email, values.password);
-    navigate("/tables");
+    login(values.email, values.password, {
+      onSuccess: async () => {
+        navigate("/tables");
+      }
+    });
   }
 
   return (

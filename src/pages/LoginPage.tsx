@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
 
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !isLoading) {
       navigate("/tables");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, isLoading]);
 
   return (
     <div className="flex flex-col items-center justify-center h-dvh">

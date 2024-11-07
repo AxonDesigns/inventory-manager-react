@@ -11,6 +11,7 @@ import ProductsPage from '@/pages/tables/ProductsPage';
 import LoginPage from '@/pages/LoginPage';
 import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/components/AuthProvider';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 // paths with no trailing slash are considered as relative to the current path
 // in the other hand, paths with trailing slash are considered as absolute
@@ -31,9 +32,17 @@ const router = createBrowserRouter([
       },
       {
         path: "tables",
-        element: <TablesLayout />,
+        element: (
+          <ProtectedRoute>
+            <TablesLayout />
+          </ProtectedRoute>
+        ),
         children: [
-          { path: "", element: <Navigate to="/tables/products" replace /> },
+          {
+            path: "", element: (
+              <Navigate to="/tables/products" replace />
+            )
+          },
           {
             path: "products",
             element: <ProductsPage />,

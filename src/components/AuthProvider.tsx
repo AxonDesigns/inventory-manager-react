@@ -1,6 +1,5 @@
 import axios from "axios";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
-import useSWR from "swr";
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
 
 type User = {
   id: number;
@@ -21,33 +20,56 @@ type AuthState = {
   isAuthenticated: boolean;
   user: User | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  login: (email: string, password: string, { onSuccess, onError }: AuthCallbacks) => void;
+  logout: ({ onSuccess, onError }: AuthCallbacks) => void;
+}
+
+interface AuthCallbacks {
+  onSuccess?: () => Promise<void>;
+  onError?: (error: Error) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthState>({
   isAuthenticated: false,
   user: null,
   isLoading: false,
-  login: async () => { },
-  logout: async () => { },
+  login: () => { },
+  logout: () => { },
 });
 
-const fetcher = async (url: string) => {
+/* const fetcher = async (url: string) => {
   const response = await axios.get(url, {
     baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true,
   });
 
   return response.data;
-}
+} */
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const { data, mutate } = useSWR<User>("/api/current-user", fetcher);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = async (email: string, password: string) => {
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("/api/current-user", {
+          baseURL: import.meta.env.VITE_API_URL,
+          withCredentials: true,
+        });
+
+        setUser(response.data as User);
+      } catch (error) {
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const login = async (email: string, password: string, callbacks: AuthCallbacks | undefined) => {
     setIsLoading(true);
     try {
       const response = await axios.post("/api/login", { email, password }, {
@@ -56,15 +78,16 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
       const newUser = response.data as User;
       setUser(newUser);
-      await mutate(newUser);
+      callbacks?.onSuccess?.();
     } catch (error) {
       setUser(null);
+      callbacks?.onError?.(error as Error);
     } finally {
       setIsLoading(false);
     }
   }
 
-  const logout = async () => {
+  const logout = async (callbacks: AuthCallbacks | undefined) => {
     setIsLoading(true);
     try {
       await axios.post("/api/logout", {}, {
@@ -73,8 +96,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       });
 
       setUser(null);
-      await mutate();
+      callbacks?.onSuccess?.();
     } catch (error) {
+      callbacks?.onError?.(error as Error);
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +107,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   return (
     <AuthContext.Provider value={{
       isAuthenticated: user !== null,
-      user: data || user,
+      user,
       isLoading,
       login,
       logout,

@@ -37,8 +37,9 @@ function AppSidebarFooter() {
               align="start"
             >
               <DropdownMenuItem onClick={() => {
-                logout();
-                navigate("/login");
+                logout({
+                  onSuccess: async () => navigate("/login"),
+                });
               }}>
                 <LogOut /> Log Out
               </DropdownMenuItem>
