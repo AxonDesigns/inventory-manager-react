@@ -4,7 +4,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@/components/theme-provider';
-import NotFoundPage from '@/pages/not-found-page';
+import NotFoundPage from '@/pages/NotFoundPage';
 import TablesLayout from '@/layouts/TablesLayout';
 import RootLayout from '@/layouts/RootLayout';
 import ProductsPage from '@/pages/tables/ProductsPage';

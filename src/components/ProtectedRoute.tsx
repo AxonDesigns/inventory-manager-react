@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
-    const { isAuthenticated, isLoading } = useAuth();
+    const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!isAuthenticated && !isLoading) {
+        if (!isAuthenticated) {
             navigate("/login");
         }
-    }, [isAuthenticated, isLoading]);
+    }, [isAuthenticated]);
 
     return (
         <div>
