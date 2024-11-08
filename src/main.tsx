@@ -1,5 +1,5 @@
 import './global.css'
-import '@fontsource-variable/jetbrains-mono/index.css';
+import '@fontsource-variable/open-sans/index.css';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'

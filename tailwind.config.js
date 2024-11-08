@@ -15,7 +15,7 @@ export default {
 				'out-slow': 'cubic-bezier(0,0.75,0.75,1)',
 			},
 			fontFamily: {
-				'jetbrains-mono': ['JetBrains Mono Variable', ...defaultTheme.fontFamily.mono]
+				'open-sans': ['Open Sans Variable', ...defaultTheme.fontFamily.sans]
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
