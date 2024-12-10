@@ -1,5 +1,5 @@
 import AppSidebarFooter from "@/components/AppSidebarFooter"
-import AppSidebarHeader from "@/components/AppSideBarHeader"
+import AppSidebarHeader from "@/components/AppSidebarHeader"
 import {
   Sidebar,
   SidebarContent,

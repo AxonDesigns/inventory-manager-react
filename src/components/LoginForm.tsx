@@ -24,7 +24,6 @@ import {
 import {
   useForm
 } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
 import * as z from "zod"
 const formSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
@@ -37,14 +36,9 @@ export default function LoginForm() {
   })
 
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
-    login(values.email, values.password, {
-      onSuccess: async () => {
-        navigate("/tables");
-      }
-    });
+    login(values.email, values.password);
   }
 
   return (

@@ -21,7 +21,7 @@ function AppSidebarHeader() {
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Inventory Manager</span>
+                  <span className="font-semibold">Organization Name</span>
                   <span className="">Enterprise</span>
                 </div>
                 <ChevronsUpDown className="ml-auto" />

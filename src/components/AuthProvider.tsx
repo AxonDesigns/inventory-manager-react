@@ -20,21 +20,16 @@ type AuthState = {
   isAuthenticated: boolean;
   user: User | null;
   isLoading: boolean;
-  login: (email: string, password: string, { onSuccess, onError }: AuthCallbacks) => void;
-  logout: ({ onSuccess, onError }: AuthCallbacks) => void;
-}
-
-interface AuthCallbacks {
-  onSuccess?: () => Promise<void>;
-  onError?: (error: Error) => Promise<void>;
+  login: (email: string, password: string) => Promise<boolean>;
+  logout: () => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthState>({
   isAuthenticated: false,
   user: null,
   isLoading: false,
-  login: () => { },
-  logout: () => { },
+  login: async () => false,
+  logout: async () => false,
 });
 
 /* const fetcher = async (url: string) => {
@@ -53,7 +48,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("/api/current-user", {
+        const response = await axios.get("/api/auth/me", {
           baseURL: import.meta.env.VITE_API_URL,
           withCredentials: true,
         });
@@ -69,36 +64,36 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     fetchUser();
   }, []);
 
-  const login = async (email: string, password: string, callbacks: AuthCallbacks | undefined) => {
+  const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const response = await axios.post("/api/login", { email, password }, {
+      const response = await axios.post("/api/auth/login", { email, password }, {
         baseURL: import.meta.env.VITE_API_URL,
         withCredentials: true,
       });
       const newUser = response.data as User;
       setUser(newUser);
-      callbacks?.onSuccess?.();
+      return true;
     } catch (error) {
       setUser(null);
-      callbacks?.onError?.(error as Error);
+      return false;
     } finally {
       setIsLoading(false);
     }
   }
 
-  const logout = async (callbacks: AuthCallbacks | undefined) => {
+  const logout = async (): Promise<boolean> => {
     setIsLoading(true);
     try {
-      await axios.post("/api/logout", {}, {
+      await axios.post("/api/auth/logout", {}, {
         baseURL: import.meta.env.VITE_API_URL,
         withCredentials: true,
       });
 
       setUser(null);
-      callbacks?.onSuccess?.();
+      return true;
     } catch (error) {
-      callbacks?.onError?.(error as Error);
+      return false;
     } finally {
       setIsLoading(false);
     }

@@ -1,5 +1,8 @@
-import './global.css'
+import '@/global.css'
 import '@fontsource-variable/open-sans/index.css';
+import '@/fonts/Supreme/css/supreme.css';
+import '@/fonts/GeneralSans/css/general-sans.css';
+import '@/fonts/Satoshi/css/satoshi.css';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'

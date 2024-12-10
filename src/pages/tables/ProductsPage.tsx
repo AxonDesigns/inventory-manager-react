@@ -16,7 +16,7 @@ function ProductsPage() {
 
   return (
     <div className='mx-8 mt-4 animate-fade-in-up duration-200 ease-out-slow'>
-      <h1 className='text-5xl font-bold mb-4 font-open-sans'>Products</h1>
+      <h1 className='text-5xl font-bold mb-4'>Products</h1>
       <ul className='list-disc space-y-2 ml-4'>
         {posts.map((post) => (
           <li key={post.id} className='text-foreground/50'>

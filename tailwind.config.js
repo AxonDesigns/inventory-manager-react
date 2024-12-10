@@ -15,7 +15,10 @@ export default {
 				'out-slow': 'cubic-bezier(0,0.75,0.75,1)',
 			},
 			fontFamily: {
-				'open-sans': ['Open Sans Variable', ...defaultTheme.fontFamily.sans]
+				'open-sans': ['Open Sans Variable', ...defaultTheme.fontFamily.sans],
+				'supreme': ['Supreme', ...defaultTheme.fontFamily.sans],
+				'satoshi': ['Satoshi', ...defaultTheme.fontFamily.sans],
+				'general-sans': ['General Sans', ...defaultTheme.fontFamily.sans],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
