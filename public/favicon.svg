@@ -1,5 +1,5 @@
 <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
-    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2">
+    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2" fill="currentColor">
     <path d="m70 48-26 52H24l36-72 10 20Zm-20 52 36-72h20l-36 72H50Zm26 0 10-20 10 20H76Z" transform="translate(-30.4383 -29.9701) scale(1.46828)"/>
     <style>
         path { fill: #000; }
