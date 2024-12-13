@@ -17,7 +17,6 @@ import {
 import {
   PasswordInput
 } from "@/components/ui/password-input"
-import { Separator } from "@/components/ui/separator"
 import {
   zodResolver
 } from "@hookform/resolvers/zod"
@@ -44,10 +43,6 @@ export default function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-2">
-        <h1 className="text-xl font-open-sans font-bold text-center">
-          Welcome Back!
-        </h1>
-        <Separator />
         <FormField
           control={form.control}
           name="email"

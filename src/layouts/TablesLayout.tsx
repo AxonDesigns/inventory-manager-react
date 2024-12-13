@@ -24,7 +24,7 @@ function TablesLayout() {
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link to="/tables">Tables</Link>
+                  <Link to="/administration">Administration</Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />

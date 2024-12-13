@@ -18,22 +18,22 @@ import { Link } from "react-router-dom"
 const items = [
   {
     title: "Products",
-    url: "/tables/products",
+    url: "/administration/products",
     icon: <Package />,
   },
   {
     title: "Users",
-    url: "/tables/users",
+    url: "/administration/users",
     icon: <Users />,
   },
   {
     title: "Orders",
-    url: "/tables/orders",
+    url: "/administration/orders",
     icon: <ReceiptText />,
   },
   {
     title: "Customers",
-    url: "/tables/customers",
+    url: "/administration/customers",
     icon: <Users />,
   },
 ]
