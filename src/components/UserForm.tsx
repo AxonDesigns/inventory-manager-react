@@ -23,10 +23,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { UserRole } from "@/lib/types"
+import { User, UserRole } from "@/lib/types"
 import {
     zodResolver
 } from "@hookform/resolvers/zod"
+import { useEffect } from "react"
 import {
     useForm
 } from "react-hook-form"
@@ -39,7 +40,7 @@ const formSchema = z.object({
     name: z.string({
         required_error: "Name is required",
     }).min(1, "Name is required"),
-    role: z.string({
+    role_id: z.string({
         required_error: "Role is required",
     }),
     email: z.string({
@@ -54,16 +55,24 @@ interface UserFormProps {
     onSubmit?: (values: z.infer<typeof formSchema>) => void;
     onCancel?: () => void;
     roles?: UserRole[];
+    defaultValues?: User;
 }
 
-export default function UserForm({ onSubmit, onCancel, roles }: UserFormProps) {
+export default function UserForm({ onSubmit, onCancel, roles, defaultValues }: UserFormProps) {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            role: roles?.[0]?.id,
-        },
-    })
+            role_id: roles?.[0]?.id,
+            ...defaultValues
+        }
+    });
+
+    useEffect(() => {
+        form.reset(defaultValues);
+        console.log("defaultValues", defaultValues);
+        console.log("roles", roles);
+    }, [defaultValues]);
 
     function _onSubmit(values: z.infer<typeof formSchema>) {
         try {
@@ -106,7 +115,7 @@ export default function UserForm({ onSubmit, onCancel, roles }: UserFormProps) {
 
                         <FormField
                             control={form.control}
-                            name="role"
+                            name="role_id"
                             rules={{ required: true }}
                             render={({ field }) => (
                                 <FormItem>

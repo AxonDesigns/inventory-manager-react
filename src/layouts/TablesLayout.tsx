@@ -14,13 +14,13 @@ function TablesLayout() {
   const location = useLocation()
 
   return (
-    <SidebarProvider open={true} className='items-stretch'>
+    <SidebarProvider open={true} className='items-stretch' >
       <AppSidebar />
-      <div className='flex-1'>
+      <div className='flex-1 w-full'>
         <header className='sticky top-0 left-0 right-0 z-10 flex items-center gap-2 p-4 bg-background/50 backdrop-blur-sm border-b'>
           {isMobile && <SidebarTrigger className='' />}
           {isMobile && <Separator orientation='vertical' className='h-5 mx-2' />}
-          <Breadcrumb className='ml-1'>
+          <Breadcrumb className='ml-1 hidden sm:block '>
             <BreadcrumbList>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
