@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ResponsiveDialog } from "@/components/ui/responsive-dialog";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import UserForm from "@/components/UserForm";
@@ -29,47 +29,108 @@ export const UsersPage = () => {
 
     const [user, setUser] = useState<User | undefined>();
 
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [newDialogOpen, setNewDialogOpen] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     return (
         <>
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="" aria-describedby={undefined}>
-                    <DialogHeader>
-                        <DialogTitle>New User</DialogTitle>
-                    </DialogHeader>
-                    <UserForm
-                        onSubmit={async (values) => {
-                            try {
-                                await axios.post("/api/users", values, {
-                                    baseURL: import.meta.env.VITE_API_URL
-                                });
+            <ResponsiveDialog title="New User" isOpen={newDialogOpen} setIsOpen={setNewDialogOpen}>
+                <UserForm
+                    onSubmit={async (values) => {
+                        try {
+                            await axios.post("/api/users", values, {
+                                baseURL: import.meta.env.VITE_API_URL
+                            });
 
-                                toast.success("User created successfully.");
-                                mutate();
-                            } catch (error) {
-                                if (error instanceof AxiosError) {
-                                    toast.error(error.response?.data.errors);
-                                }
-                                else {
-                                    toast.error("An error occurred, please try again.");
-                                }
-                            } finally {
-                                setIsDialogOpen(false);
+                            toast.success("User created successfully.");
+                            mutate();
+                        } catch (error) {
+                            if (error instanceof AxiosError) {
+                                toast.error(error.response?.data.errors);
                             }
-                        }}
-                        onCancel={() => setIsDialogOpen(false)}
-                        roles={roles}
-                        defaultValues={user}
-                    />
-                </DialogContent>
-            </Dialog>
+                            else {
+                                toast.error("An error occurred, please try again.");
+                            }
+                        } finally {
+                            setNewDialogOpen(false);
+                        }
+                    }}
+                    onCancel={() => setNewDialogOpen(false)}
+                    roles={roles}
+                    submitText="Create"
+                />
+            </ResponsiveDialog>
+
+            <ResponsiveDialog title="Edit User" isOpen={editDialogOpen} setIsOpen={setEditDialogOpen}>
+                <UserForm
+                    onSubmit={async (values) => {
+                        if (!user) return;
+                        try {
+                            await axios.put("/api/users/" + user?.id, values, {
+                                baseURL: import.meta.env.VITE_API_URL
+                            });
+
+                            toast.success("User updated successfully.");
+                            mutate();
+                        } catch (error) {
+                            if (error instanceof AxiosError) {
+                                toast.error(error.response?.data.errors);
+                            }
+                            else {
+                                toast.error("An error occurred, please try again.");
+                            }
+                        } finally {
+                            setEditDialogOpen(false);
+                        }
+                    }}
+                    onCancel={() => setEditDialogOpen(false)}
+                    roles={roles}
+                    defaultValues={user}
+                    submitText="Save"
+                />
+            </ResponsiveDialog>
+
+            <ResponsiveDialog
+                title="Are you sure?"
+                description="Are you sure you want to delete this user? This will remove it permanently from our servers."
+                isOpen={deleteDialogOpen}
+                setIsOpen={setDeleteDialogOpen}
+            >
+                <div className="flex justify-end gap-2">
+                    <Button variant="secondary" type="button" onClick={() => {
+                        setDeleteDialogOpen(false);
+                    }}>Cancel</Button>
+
+                    <Button variant="destructive" type="submit" onClick={async () => {
+                        if (!user) return;
+                        try {
+                            await axios.delete("/api/users/" + user?.id, {
+                                baseURL: import.meta.env.VITE_API_URL
+                            });
+
+                            toast.success("User deleted successfully.");
+                            mutate();
+                        } catch (error) {
+                            if (error instanceof AxiosError) {
+                                toast.error(error.response?.data.errors);
+                            }
+                            else {
+                                toast.error("An error occurred, please try again.");
+                            }
+                        } finally {
+                            setDeleteDialogOpen(false);
+                        }
+                    }}>Delete</Button>
+                </div>
+            </ResponsiveDialog>
+
             <div className="flex flex-col mx-2 sm:mx-8 mt-4 animate-fade-in-up duration-200 ease-out-slow">
                 <div className="flex items-center mb-4">
                     <h1 className="text-5xl font-bold flex-1">Users</h1>
                     <Button onClick={() => {
                         setUser(undefined);
-                        setIsDialogOpen(true)
+                        setNewDialogOpen(true)
                     }}>
                         <Plus /> <span>Add User</span>
                     </Button>
@@ -152,12 +213,21 @@ export const UsersPage = () => {
                                                             ...user,
                                                             role_id: user.role.id
                                                         } as User);
-                                                        setIsDialogOpen(true);
+                                                        setEditDialogOpen(true);
                                                     }}
                                                 >
                                                     <Edit /> <span>Edit</span>
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem>
+                                                <DropdownMenuItem
+                                                    onClick={() => {
+                                                        setUser({
+                                                            ...user,
+                                                            role_id: user.role.id
+                                                        } as User);
+                                                        setDeleteDialogOpen(true);
+                                                    }}
+                                                    className="text-red-600"
+                                                >
                                                     <Trash /> <span>Delete</span>
                                                 </DropdownMenuItem>
                                             </DropdownMenuContent>

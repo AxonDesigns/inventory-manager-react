@@ -56,9 +56,10 @@ interface UserFormProps {
     onCancel?: () => void;
     roles?: UserRole[];
     defaultValues?: User;
+    submitText?: string;
 }
 
-export default function UserForm({ onSubmit, onCancel, roles, defaultValues }: UserFormProps) {
+export default function UserForm({ onSubmit, onCancel, roles, defaultValues, submitText }: UserFormProps) {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -178,7 +179,7 @@ export default function UserForm({ onSubmit, onCancel, roles, defaultValues }: U
                 <div className="flex justify-end gap-2">
                     <Button variant="secondary" onClick={onCancel} type="button">Cancel</Button>
 
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit">{submitText ?? "Submit"}</Button>
                 </div>
             </form>
         </Form>

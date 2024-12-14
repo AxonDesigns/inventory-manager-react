@@ -15,7 +15,7 @@ import LoginPage from '@/pages/LoginPage';
 import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/components/AuthProvider';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { UsersPage } from './pages/tables/Userspage';
+import { UsersPage } from './pages/tables/UsersPage';
 
 // paths with no trailing slash are considered as relative to the current path
 // in the other hand, paths with trailing slash are considered as absolute
