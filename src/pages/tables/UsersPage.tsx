@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { ResponsiveDialog } from "@/components/ui/responsive-dialog";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import UserForm from "@/components/UserForm";
 import { ExpandedUser, User, UserRole } from "@/lib/types";
@@ -138,7 +138,6 @@ export const UsersPage = () => {
 
                 <div>
                     <Table >
-                        <TableCaption>A list of registered users.</TableCaption>
                         <TableHeader className="h-14">
                             <TableRow className="hover:bg-transparent">
                                 <TableHead className="h-14 bg-sidebar rounded-tl-lg flex items-center justify-center">
@@ -159,8 +158,8 @@ export const UsersPage = () => {
                                 <TableHead className="w-[160px] bg-sidebar">
                                     Updated At
                                 </TableHead>
-                                <TableHead align="right" className="bg-sidebar rounded-tr-lg">
-                                    Actions
+                                <TableHead align="right" className="bg-sidebar rounded-tr-lg w-[50px]">
+
                                 </TableHead>
                             </TableRow>
                         </TableHeader>
@@ -204,7 +203,7 @@ export const UsersPage = () => {
                                                     <EllipsisVertical />
                                                 </Button>
                                             </DropdownMenuTrigger>
-                                            <DropdownMenuContent>
+                                            <DropdownMenuContent align="end">
                                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
                                                 <DropdownMenuItem
