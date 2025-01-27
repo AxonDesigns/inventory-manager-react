@@ -35,7 +35,13 @@ export const UsersPage = () => {
 
     return (
         <>
-            <ResponsiveDialog title="New User" isOpen={newDialogOpen} setIsOpen={setNewDialogOpen}>
+            <ResponsiveDialog
+                title="New User"
+                isOpen={newDialogOpen}
+                setIsOpen={setNewDialogOpen}
+                isSheet
+                description="Fill out the form below to create a new user account. Only administrator can create admin users."
+            >
                 <UserForm
                     onSubmit={async (values) => {
                         try {

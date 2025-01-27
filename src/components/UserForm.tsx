@@ -40,7 +40,7 @@ const formSchema = z.object({
     name: z.string({
         required_error: "Name is required",
     }).min(1, "Name is required"),
-    role_id: z.string({
+    role: z.string({
         required_error: "Role is required",
     }),
     email: z.string({
@@ -64,7 +64,7 @@ export default function UserForm({ onSubmit, onCancel, roles, defaultValues, sub
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            role_id: roles?.[0]?.id,
+            role: roles?.[0]?.id,
             ...defaultValues
         }
     });
@@ -116,7 +116,7 @@ export default function UserForm({ onSubmit, onCancel, roles, defaultValues, sub
 
                         <FormField
                             control={form.control}
-                            name="role_id"
+                            name="role"
                             rules={{ required: true }}
                             render={({ field }) => (
                                 <FormItem>

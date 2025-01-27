@@ -10,7 +10,7 @@ export type User = {
     id: string;
     name: string;
     email: string;
-    role_id: string;
+    roleId: string;
     createdAt: Date;
     updatedAt: Date;
 }

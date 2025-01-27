@@ -13,15 +13,18 @@ import {
     DrawerHeader,
     DrawerTitle
 } from './drawer';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from './sheet';
 
 export function ResponsiveDialog({
     children,
+    isSheet = false,
     isOpen,
     setIsOpen,
     title,
     description,
 }: {
     children: React.ReactNode;
+    isSheet?: boolean;
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     title: string;
@@ -30,6 +33,24 @@ export function ResponsiveDialog({
     const isDesktop = useMediaQuery('(min-width: 768px)');
 
     if (isDesktop) {
+        if (isSheet) {
+            return (
+                <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                    <SheetTrigger className='hidden'>
+
+                    </SheetTrigger>
+                    <SheetContent className="sm:max-w-[425px]">
+                        <SheetHeader className='mb-2'>
+                            <SheetTitle>{title}</SheetTitle>
+                            {description && (
+                                <SheetDescription>{description}</SheetDescription>
+                            )}
+                        </SheetHeader>
+                        {children}
+                    </SheetContent>
+                </Sheet>
+            );
+        }
         return (
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <DialogContent className="sm:max-w-[425px]">
