@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-CMD [ "bash", "-c", '"sleep infinity"' ]
+EXPOSE 5173

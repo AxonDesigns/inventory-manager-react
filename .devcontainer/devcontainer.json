@@ -1,19 +1,14 @@
 {
 	"name": "Node.js & TypeScript",
-	"build": {
-		"dockerfile": "../Dockerfile"
-	},
-	"appPort": [
-		"5173:5173"
-	],
-	"postAttachCommand": "npm install --no-audit",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "app",
 	"workspaceFolder": "/app",
+	"postAttachCommand": "npm install --no-audit",
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"bradlc.vscode-tailwindcss",
 				"ms-azuretools.vscode-docker",
-				"cweijan.vscode-database-client2",
 				"yoavbls.pretty-ts-errors"
 			],
 			"settings": {
