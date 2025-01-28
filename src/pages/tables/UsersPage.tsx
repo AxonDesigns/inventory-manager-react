@@ -8,12 +8,13 @@ import { ExpandedUser, User, UserRole } from "@/lib/types";
 import { format } from "@formkit/tempo";
 import axios, { AxiosError } from "axios";
 import { Copy, Edit, EllipsisVertical, Plus, Trash } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 
 const usersFetcher = async (url: string) => {
     const response = await axios.get(url, { baseURL: import.meta.env.VITE_API_URL });
+    console.log(response.data);
     return await response.data as ExpandedUser[];
 };
 
@@ -27,11 +28,15 @@ export const UsersPage = () => {
     const { data: users, mutate } = useSWR("/api/users?expand", usersFetcher, { suspense: true });
     const { data: roles } = useSWR("/api/user-roles", rolesFetcher, { suspense: true });
 
-    const [user, setUser] = useState<User | undefined>();
+    const [user, setUser] = useState<ExpandedUser | undefined>();
 
     const [newDialogOpen, setNewDialogOpen] = useState(false);
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
 
     return (
         <>
@@ -214,10 +219,7 @@ export const UsersPage = () => {
                                                 <DropdownMenuSeparator />
                                                 <DropdownMenuItem
                                                     onClick={() => {
-                                                        setUser({
-                                                            ...user,
-                                                            role_id: user.role.id
-                                                        } as User);
+                                                        setUser(user);
                                                         setEditDialogOpen(true);
                                                     }}
                                                 >
@@ -225,10 +227,7 @@ export const UsersPage = () => {
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem
                                                     onClick={() => {
-                                                        setUser({
-                                                            ...user,
-                                                            role_id: user.role.id
-                                                        } as User);
+                                                        setUser(user);
                                                         setDeleteDialogOpen(true);
                                                     }}
                                                     className="text-red-600"

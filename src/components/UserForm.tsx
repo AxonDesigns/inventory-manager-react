@@ -23,7 +23,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { User, UserRole } from "@/lib/types"
+import { ExpandedUser, UserRole } from "@/lib/types"
 import {
     zodResolver
 } from "@hookform/resolvers/zod"
@@ -40,7 +40,7 @@ const formSchema = z.object({
     name: z.string({
         required_error: "Name is required",
     }).min(1, "Name is required"),
-    role: z.string({
+    roleId: z.string({
         required_error: "Role is required",
     }),
     email: z.string({
@@ -55,7 +55,7 @@ interface UserFormProps {
     onSubmit?: (values: z.infer<typeof formSchema>) => void;
     onCancel?: () => void;
     roles?: UserRole[];
-    defaultValues?: User;
+    defaultValues?: ExpandedUser;
     submitText?: string;
 }
 
@@ -64,7 +64,7 @@ export default function UserForm({ onSubmit, onCancel, roles, defaultValues, sub
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            role: roles?.[0]?.id,
+            roleId: defaultValues?.role.id ?? roles?.[0]?.id,
             ...defaultValues
         }
     });
@@ -116,7 +116,7 @@ export default function UserForm({ onSubmit, onCancel, roles, defaultValues, sub
 
                         <FormField
                             control={form.control}
-                            name="role"
+                            name="roleId"
                             rules={{ required: true }}
                             render={({ field }) => (
                                 <FormItem>
@@ -152,7 +152,8 @@ export default function UserForm({ onSubmit, onCancel, roles, defaultValues, sub
                                 <Input
                                     placeholder="email@example.com"
                                     type="email"
-                                    {...field} />
+                                    {...field}
+                                />
                             </FormControl>
 
                             <FormMessage />
@@ -170,7 +171,6 @@ export default function UserForm({ onSubmit, onCancel, roles, defaultValues, sub
                             <FormControl>
                                 <PasswordInput placeholder="password" {...field} />
                             </FormControl>
-
                             <FormMessage />
                         </FormItem>
                     )}
@@ -178,7 +178,6 @@ export default function UserForm({ onSubmit, onCancel, roles, defaultValues, sub
 
                 <div className="flex justify-end gap-2">
                     <Button variant="secondary" onClick={onCancel} type="button">Cancel</Button>
-
                     <Button type="submit">{submitText ?? "Submit"}</Button>
                 </div>
             </form>
