@@ -4,7 +4,7 @@ import { ResponsiveDialog } from "@/components/ui/responsive-dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import UserForm from "@/components/UserForm";
-import { ExpandedUser, User, UserRole } from "@/lib/types";
+import { ExpandedUser, UserRole } from "@/lib/types";
 import { format } from "@formkit/tempo";
 import axios, { AxiosError } from "axios";
 import { Copy, Edit, EllipsisVertical, Plus, Trash } from "lucide-react";
